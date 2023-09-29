@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Milkybar World Map</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Milkybar World Map</h1>
+        <div class="image-container">
+            <input type="file" accept="image/*" capture="camera" id="cameraInput" style="display: none;">
+            <img src="fallback_image.jpg" alt="Fallback Image" id="imagePlaceholder">
+        </div>
+        <input type="text" id="nameInput" maxlength="30" placeholder="Enter Name">
+        <button id="downloadButton" style="display: none;">Download</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
