@@ -1,0 +1,52 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const imageInput = document.getElementById('cameraInput');
+    const imagePlaceholder = document.getElementById('imagePlaceholder');
+    const nameInput = document.getElementById('nameInput');
+    const downloadButton = document.getElementById('downloadButton');
+
+    // 1. Open Camera on Fallback Image Click
+    imagePlaceholder.addEventListener('click', () => {
+        imageInput.click();
+    });
+
+    // 2. Convert and Save Image as Base64
+    imageInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const base64Image = e.target.result;
+                localStorage.setItem('userImage', base64Image);
+                imagePlaceholder.src = base64Image;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // 3. Edit the Name Value
+    nameInput.addEventListener('input', () => {
+        const name = nameInput.value;
+        if (/^[a-zA-Z]+$/.test(name) && name.length <= 30) {
+            localStorage.setItem('userName', name);
+        }
+    });
+
+    // 5. Load Name Value from Local Storage
+    const savedName = localStorage.getItem('userName');
+    if (savedName) {
+        nameInput.value = savedName;
+    }
+
+    // 7. Download Functionality
+    imagePlaceholder.addEventListener('load', () => {
+        downloadButton.style.display = 'inline-block';
+    });
+
+    downloadButton.addEventListener('click', () => {
+        const modifiedImage = imagePlaceholder.src;
+        const a = document.createElement('a');
+        a.href = modifiedImage;
+        a.download = 'world_map.jpg';
+        a.click();
+    });
+});
